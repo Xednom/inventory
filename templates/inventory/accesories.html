@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block head %}<title>Accesories</title> {% endblock %}
+{% block content %}
+  <div class="content">
+      <div class="col-md-12">
+          <div class="panel panel-default">
+              <div class="panel-heading">Panel Header tshirt</div>
+              <div class="panel-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Brand name</th>
+                      <th scope="col">Size</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Date Added</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if all_acce %}
+                    {% for acce in all_acce %}
+                    <tr>
+                      <th scope="row">{{ acce.pk }}</th>
+                      <td>{{ acce.category_items }}</td>
+                      <td>{{ acce.brand_name }}</td>
+                      <td>{{ acce.size }}</td>
+                      <td>{{ acce.price }}</td>
+                      <td>{{ acce.date_added }}</td>
+                      <td></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="14" class="text-center bg-warning">No Accesories items listed</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

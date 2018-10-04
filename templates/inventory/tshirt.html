@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block head %} <title>T-shirt</title> {% endblock %}
+{% block content %}
+  <div class="content">
+      <div class="col-md-12">
+          <div class="panel panel-default">
+              <div class="panel-heading">Panel Header tshirt</div>
+              <div class="panel-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Brand name</th>
+                      <th scope="col">Size</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Date Added</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if all_tshirt %}
+                    {% for tshirt in all_tshirt %}
+                    <tr>
+                      <th scope="row">{{ tshirt.pk }}</th>
+                      <td>{{ tshirt.category_items }}</td>
+                      <td>{{ tshirt.brand_name }}</td>
+                      <td>{{ tshirt.size }}</td>
+                      <td>{{ tshirt.price }}</td>
+                      <td>{{ tshirt.date_added }}</td>
+                      <td></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="14" class="text-center bg-warning">No T-shirt items listed</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

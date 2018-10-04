@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block head %}<title>Inventory</title> {% endblock %}
+{% block content %}
+<div id="inventory">
+  <div class="content">
+      <div class="col-md-12">
+          <div class="panel panel-default">
+              <div class="panel-heading">Inventory</div>
+              <div class="panel-body">
+                <!-- button for modal on add item-->
+                <button type="button" class="btn btn-xs btn-add btn-success pull-right" data-toggle="modal" data-target="#addItemModal">Add item</button>
+                <!-- end button for modal on add item -->
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Brand name</th>
+                      <th scope="col">Size</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Date Added</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in items">
+                      <th scope="row">${ item.pk }</th>
+                      <td>${ item.category_items }</td>
+                      <td>${ item.brand_name }</td>
+                      <td>${ item.size }</td>
+                      <td>${ item.price }</td>
+                      <td>${ item.date_added }</td>
+                      <td><a href type="button" class="btn btn-warning glyphicon glyphicon-pencil btn-sm" v-on:click="getItem(item.item_id)" data-toggle="modal" data-target="#editItemModal"></a></td>
+                      <td><a href class="btn btn-danger glyphicon glyphicon-trash btn-sm" v-on:click="deleteItem(item.item_id)"></a></td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+                  <!-- Add Modal -->
+                  <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3 class="modal-title" id="exampleModalLabel">Modal title</h3>
+                        </div>
+
+                        <form v-on:submit.prevent="addItem()">
+                        <div class="modal-body">
+                            <div class="form-group">{% csrf_token %}
+                              <label for="category_name">Category name</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="article_heading"
+                                placeholder="Enter Category item name"
+                                v-model="newItem.category_items"
+                                required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="brand_name">Brand name</label>
+                              <input
+                                class="form-control"
+                                id="article_body"
+                                placeholder="Enter Article Body"
+                                v-model="newItem.brand_name"
+                                required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="size">Size</label>
+                              <input
+                                class="form-control"
+                                id="article_body"
+                                placeholder="Enter size"
+                                v-model="newItem.size"
+                                required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="price">Price</label>
+                              <input
+                                class="form-control"
+                                id="article_body"
+                                placeholder="Enter price"
+                                v-model="newItem.price"
+                                required="required" >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary m-progress" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end of add modal -->
+                  <!-- Edit Modal -->
+                  <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3 class="modal-title">Edit item information</h3>
+                        </div>
+                        <form v-on:submit.prevent="updateItem()">
+                        <div class="modal-body">
+                            <div class="form-group">
+                              <label for="category_name">Category name</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="article_heading"
+                                placeholder="Enter Category item name"
+                                v-model="currentItem.category_items"
+                                required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="brand_name">Brand name</label>
+                              <input
+                                class="form-control"
+                                id="article_body"
+                                placeholder="Enter Article Body"
+                                v-model="currentItem.brand_name"
+                                required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="size">Size</label>
+                              <input
+                                class="form-control"
+                                id="article_body"
+                                placeholder="Enter size"
+                                v-model="currentItem.size"
+                                required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="price">Price</label>
+                              <input
+                                class="form-control"
+                                id="article_body"
+                                placeholder="Enter price"
+                                v-model="currentItem.price"
+                                required="required" >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end of edit modal -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>
+{% endblock %}
