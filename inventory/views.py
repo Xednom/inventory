@@ -8,8 +8,8 @@ from django.views.generic import (
     )
 
 from rest_framework import viewsets, filters
-from .models import Item
-from .serializers import ItemSerializer
+from .models import Item, Category
+from .serializers import ItemSerializer, CategorySerializer
 
 
 class TshirtListView(ListView):
@@ -18,7 +18,7 @@ class TshirtListView(ListView):
     context_object_name = 'all_tshirt'
 
     def get_queryset(self):
-        queryset = Item.objects.filter(category_items__startswith='tshirt')
+        queryset = Item.objects.filter(category_items__category_name='Tshirt')
         return queryset
 
 
@@ -28,7 +28,7 @@ class AccesoriesListView(ListView):
     context_object_name = 'all_acce'
 
     def get_queryset(self):
-        queryset = Item.objects.filter(category_items__startswith='accesories')
+        queryset = Item.objects.filter(category_items__category_name='Accesories')
         return queryset
 
 
@@ -38,7 +38,7 @@ class ShoesListView(ListView):
     context_object_name = 'all_shoes'
 
     def get_queryset(self):
-        queryset = Item.objects.filter(category_items__startswith='shoes')
+        queryset = Item.objects.filter(category_items__category_name='Shoes')
         return queryset
 
 
@@ -55,6 +55,11 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
     filter_backends = (filters.SearchFilter,)
     serach_fields = ('brand_name')
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 
 def index(request):

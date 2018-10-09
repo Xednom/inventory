@@ -31,7 +31,7 @@
                       <td>${ item.price }</td>
                       <td>${ item.date_added }</td>
                       <td><a href type="button" class="btn btn-warning glyphicon glyphicon-pencil btn-sm" v-on:click="getItem(item.item_id)" data-toggle="modal" data-target="#editItemModal"></a></td>
-                      <td><button type="button" class="btn btn-danger glyphicon glyphicon-trash btn-sm" v-on:click="deleteItem(item.item_id)"></button></td> 
+                      <td><button type="button" class="btn btn-danger glyphicon glyphicon-trash btn-sm" v-on:click="deleteItem(item.item_id)"></button></td>
                     </tr>
 
                   </tbody>
@@ -45,17 +45,23 @@
                           <h3 class="modal-title" id="exampleModalLabel">Modal title</h3>
                         </div>
 
-                        <form v-on:submit.prevent="addItem()">
+                        <form v-on:submit.prevent="addItem()">{% csrf_token %}
                         <div class="modal-body">
-                            <div class="form-group">{% csrf_token %}
+                            <div class="form-group">
                               <label for="category_name">Category name</label>
                               <input
-                                type="text"
+                                type="hidden"
                                 class="form-control"
                                 id="article_heading"
                                 placeholder="Enter Category item name"
                                 v-model="newItem.category_items"
                                 required="required" >
+                            </div>
+                            <div class="form-group">
+                              <label for="category_name">Category names</label>
+                              <select class="form-control" id="sel1" v-model="newItem.category_items">
+                                <option v-for="category in categorys">${category.category_name}</option>
+                              </select>
                             </div>
                             <div class="form-group">
                               <label for="brand_name">Brand name</label>
@@ -103,21 +109,17 @@
                         </div>
                         <form v-on:submit.prevent="updateItem()">
                         <div class="modal-body">
-                            <div class="form-group">
-                              <label for="category_name">Category name</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="article_heading"
-                                placeholder="Enter Category item name"
-                                v-model="currentItem.category_items"
-                                required="required" >
-                            </div>
+                          <div class="form-group">
+                            <label for="category_name">Category names</label>
+                            <select class="form-control" id="sel1" v-model="currentItem.category_items" >
+                              <option v-for="category in categorys">${category.category_name}</option>
+                            </select>
+                          </div>
                             <div class="form-group">
                               <label for="brand_name">Brand name</label>
                               <input
                                 class="form-control"
-                                id="article_body"
+                                id="brand_name"
                                 placeholder="Enter Article Body"
                                 v-model="currentItem.brand_name"
                                 required="required" >
@@ -126,7 +128,7 @@
                               <label for="size">Size</label>
                               <input
                                 class="form-control"
-                                id="article_body"
+                                id="size"
                                 placeholder="Enter size"
                                 v-model="currentItem.size"
                                 required="required" >
@@ -135,7 +137,7 @@
                               <label for="price">Price</label>
                               <input
                                 class="form-control"
-                                id="article_body"
+                                id="price"
                                 placeholder="Enter price"
                                 v-model="currentItem.price"
                                 required="required" >

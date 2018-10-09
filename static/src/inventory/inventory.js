@@ -4,14 +4,17 @@ new Vue({
   delimiters: ['${','}'],
   data: {
     items: [],
+    categorys: [],
     loading: true,
     currentItem: {},
+    currentCategory: {},
     message: null,
     newItem: { 'category_items': null, 'brand_name': null, 'size': null, 'price': null },
     search_term: ''
   },
   mounted: function() {
     this.getItems();
+    this.getCategoryItems();
   },
   methods: {
     getItems: function() {
@@ -38,6 +41,18 @@ new Vue({
             $('#editItemModal').modal('show');
             this.loading = false;
             $("#editItemModal").modal('hide');
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
+    getCategoryItems: function() {
+      this.loading = true;
+      this.$http.get(`/api/v1/category/`)
+          .then((response) => {
+            this.categorys = response.data;
+            this.loading = false;
           })
           .catch((err) => {
             this.loading = false;
