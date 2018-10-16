@@ -5,7 +5,7 @@ new Vue({
   data: {
     items: [],
     categorys: [],
-    loading: true,
+    loading: false,
     currentItem: {},
     currentCategory: {},
     message: null,

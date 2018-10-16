@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Login</title>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block sidebar %}
+{% endblock %}
+{% block body %}
+<div id="login">
+  <div class="row">
+    <div class="login-form" style="margin-top: 15%;">
+        <form v-on:submit.prevent="login()" autocomplete="off">{% csrf_token %}
+            <h2 class="text-center">Log in</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" required="required" autocomplete="off" name="username" v-model="credentials.username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" required="required" autocomplete="off" name="password" v-model="credentials.password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </div>
+            <div class="clearfix">
+              <p class="text-center"><a href="#">Forgot Password?</a></p>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock body %}
